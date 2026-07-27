@@ -1,3 +1,4 @@
+> [中文文档](README.zh-CN.md)
 # Tech Blog
 
 A personal tech blog system. Lightweight static site generator + Express dev server. Write Markdown, generate pure HTML with one command, deploy with zero runtime dependencies.
@@ -113,4 +114,4 @@ tech-blog/
 
 This is not "yet another blog framework" — it's a teaching-grade SSG built from first principles. ~300 lines of core code, every byte transparent and controllable. Ideal for developers who want to understand how static sites work, or who need a fully hackable blog system.
 
-> [中文文档](README.md)
+
