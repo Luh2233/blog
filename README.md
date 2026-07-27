@@ -1,114 +1,116 @@
 # Tech Blog
 
-个人技术博客系统，轻量静态站点生成器 + Express 开发服务器，写 Markdown，一键生成纯 HTML 静态站点，零运行时依赖部署。
+A personal tech blog system. Lightweight static site generator + Express dev server. Write Markdown, generate pure HTML with one command, deploy with zero runtime dependencies.
 
-## 快速开始
+## Quick Start
 
 ```bash
 git clone <repo-url>
 cd tech-blog
 npm install
 
-# 创建第一篇新文章
-npm run new -- "我的第一篇文章"
+# Scaffold your first post
+npm run new -- "My First Post"
 
-# 编辑 content/posts/<日期>-我的第一篇文章.md
-# 将 draft: true 改为 draft: false
+# Edit content/posts/<date>-my-first-post.md
+# Change draft: true to draft: false
 
-# 本地预览
+# Local preview
 npm run dev
-# 浏览器打开 http://localhost:3000
+# Open http://localhost:3000
 
-# 构建静态站点
+# Build static site
 npm run build
-# 产物在 dist/ 目录，可直接部署到任何静态托管
+# Output in dist/ — deploy to any static host
 ```
 
-## 特性
+## Features
 
-- **纯 Markdown 写作** — YAML frontmatter + Markdown 正文，代码语法高亮
-- **零运行时依赖部署** — 构建产物是纯 HTML/CSS，可部署到 GitHub Pages / Netlify / Vercel / 任何静态服务器
-- **热重载开发** — `npm run dev` 启动开发服务器，修改内容自动重建
-- **分类与标签** — 自动生成分类页、标签云、标签文章列表
-- **归档** — 按年归档所有文章
-- **RSS** — 自动生成 RSS 2.0 订阅源
-- **草稿与置顶** — `draft: true` 隐藏文章，`pinned: true` 置顶
-- **CI/CD 就绪** — GitHub Actions 配置：push 即自动构建部署
-- **响应式设计** — 适配桌面和移动端
-- **中文友好** — 原生中文排版，URL 可读
+- **Pure Markdown** — YAML frontmatter + Markdown body with syntax highlighting
+- **Zero runtime dependencies** — Output is static HTML/CSS, deployable to GitHub Pages / Netlify / Vercel / any static server
+- **Hot reload dev server** — `npm run dev` starts Express with live rebuild on file changes
+- **Categories & tags** — Auto-generated category pages, tag cloud, tag-filtered post lists
+- **Archive** — Year-grouped archive of all posts
+- **RSS** — Auto-generated RSS 2.0 feed
+- **Drafts & pinning** — `draft: true` hides posts, `pinned: true` pins to top
+- **CI/CD ready** — GitHub Actions: push to deploy
+- **Responsive design** — Works on desktop and mobile
+- **Chinese-friendly** — Native CJK typography, readable URL slugs
 
-## 写一篇文章
+## Writing a Post
 
-在 `content/posts/` 下创建 `.md` 文件：
+Create a `.md` file under `content/posts/`:
 
 ```markdown
 ---
-title: "Dijkstra 算法笔记"
+title: "Dijkstra's Algorithm"
 date: 2026-07-06
-tags: [ACM, 图论, 算法]
-category: "ACM题解"
-summary: "Dijkstra 最短路径算法的原理、实现与复杂度分析。"
+tags: [ACM, Graph Theory, Algorithm]
+category: "ACM Solutions"
+summary: "Principle, implementation and complexity analysis of Dijkstra's shortest path algorithm."
 draft: false
 ---
 
-## 算法思想
+## Algorithm Overview
 
-Dijkstra 算法用于求解**单源最短路径**...
+Dijkstra's algorithm solves the **single-source shortest path** problem...
 ```
 
-或使用脚手架：
+Or use the scaffold:
 
 ```bash
-npm run new -- "Dijkstra 算法笔记" --tag=ACM,图论 --category=ACM题解
+npm run new -- "Dijkstra's Algorithm" --tag=ACM,Graph --category=Algorithms
 ```
 
-## 部署
+## Deployment
 
-### GitHub Pages（免费）
+### GitHub Pages (free)
 
-1. Push 到 GitHub 仓库
-2. GitHub Actions 自动构建并部署到 GitHub Pages
-3. 在仓库 Settings → Pages 中选择 "GitHub Actions"
+1. Push to a GitHub repository
+2. GitHub Actions auto-builds and deploys to GitHub Pages
+3. Go to repo Settings → Pages → select "GitHub Actions"
 
 ### Netlify / Vercel
 
-连接 GitHub 仓库，构建设置：
+Connect your GitHub repo with these settings:
 - Build command: `npm run build`
 - Publish directory: `dist`
 
-### 任意静态服务器
+### Any static server
 
 ```bash
 npm run build
-# 将 dist/ 目录内容上传到任意静态服务器
+# Upload the dist/ directory to any static file server
 ```
 
-## 项目结构
+## Project Structure
 
 ```
 tech-blog/
-├── content/posts/       ← 写文章的地方（Markdown）
+├── content/posts/       ← Where you write (Markdown)
 ├── src/
-│   ├── build.js         ← 静态站点生成器
-│   ├── server.js        ← 开发服务器 + 热重载
-│   ├── parser.js        ← Markdown 解析与索引
-│   ├── new-post.js      ← 新文章脚手架
-│   └── templates/       ← EJS 模板
-├── public/style.css     ← 全站样式
-├── dist/                ← 构建输出（部署此目录）
+│   ├── build.js         ← Static site generator
+│   ├── server.js        ← Dev server + hot reload
+│   ├── parser.js        ← Markdown parser & indexer
+│   ├── new-post.js      ← Post scaffold helper
+│   └── templates/       ← EJS templates
+├── public/style.css     ← Site-wide styles
+├── dist/                ← Build output (deploy this)
 └── .github/workflows/   ← CI/CD
 ```
 
-## 技术栈
+## Tech Stack
 
-| 组件 | 技术 | 说明 |
-|------|------|------|
-| 内容 | Markdown + YAML frontmatter | 文章存储格式 |
-| 解析 | gray-matter + marked + highlight.js | Markdown 渲染 |
-| 模板 | EJS | 服务端模板引擎 |
-| 开发 | Express + chokidar | 开发服务器 + 热重载 |
-| 样式 | 纯 CSS | 无框架，响应式 |
+| Piece | Tech | Notes |
+|-------|------|-------|
+| Content | Markdown + YAML frontmatter | Post storage format |
+| Parsing | gray-matter + marked + highlight.js | Markdown rendering |
+| Templating | EJS | Server-side template engine |
+| Dev server | Express + chokidar | Live reload on changes |
+| Styling | Vanilla CSS | No framework, responsive |
 
-## 设计哲学
+## Design Philosophy
 
-这个项目不是"又一个博客框架"——它是从第一性原理出发构建的教学级 SSG。核心代码约 300 行，每个字节都透明可控。适合想要理解静态站点工作原理、或需要一个完全可控的博客系统的开发者。
+This is not "yet another blog framework" — it's a teaching-grade SSG built from first principles. ~300 lines of core code, every byte transparent and controllable. Ideal for developers who want to understand how static sites work, or who need a fully hackable blog system.
+
+> [中文文档](README.md)
