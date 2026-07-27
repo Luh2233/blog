@@ -1,0 +1,78 @@
+<%
+// Variables available: posts (all), tags, categories, pagination info
+const { posts, tags, categories, page = 1, totalPages = 1 } = locals;
+%>
+
+<div class="hero">
+  <h1>Luh的博客</h1>
+  <p>啥都记录一下的小站</p>
+  <p class="hero-stats">
+    <span><%= posts.length %> 篇文章</span>
+    <span><%= tags.length %> 个标签</span>
+    <span><%= categories.length %> 个分类</span>
+  </p>
+</div>
+
+<% if (categories.length > 0) { %>
+<div class="category-bar">
+  <span class="category-label">分类：</span>
+  <a href="/" class="category-link <%= typeof currentCategory === "undefined" ? "active" : "" %>">全部</a>
+  <% for (const cat of categories) { %>
+    <a href="/category/<%= tagSlug(cat.category) %>.html"
+       class="category-link <%= typeof currentCategory !== "undefined" && currentCategory === cat.category ? "active" : "" %>">
+      <%= cat.category %> (<%= cat.count %>)
+    </a>
+  <% } %>
+</div>
+<% } %>
+
+<div class="post-list">
+  <% if (posts.length === 0) { %>
+    <div class="empty-state">
+      <p>还没有文章，开始写第一篇吧！</p>
+      <p><code>npm run new -- "文章标题"</code></p>
+    </div>
+  <% } %>
+
+  <% for (const post of posts) { %>
+    <article class="post-card">
+      <% if (post.pinned) { %>
+        <span class="pin-badge" title="置顶">📌</span>
+      <% } %>
+      <h2 class="post-title">
+        <a href="/post/<%= post.slug %>.html"><%= post.title %></a>
+      </h2>
+      <div class="post-meta">
+        <time datetime="<%= post.date %>"><%= post.date %></time>
+        <% if (post.updated) { %>
+          <span class="post-updated">（更新于 <%= post.updated %>）</span>
+        <% } %>
+        <span class="post-category">
+          分类：<a href="/category/<%= tagSlug(post.category) %>.html"><%= post.category %></a>
+        </span>
+      </div>
+      <% if (post.summary) { %>
+        <p class="post-summary"><%= post.summary %></p>
+      <% } %>
+      <% if (post.tags.length > 0) { %>
+        <div class="post-tags">
+          <% for (const tag of post.tags) { %>
+            <a href="/tag/<%= tagSlug(tag) %>.html" class="tag"><%= tag %></a>
+          <% } %>
+        </div>
+      <% } %>
+    </article>
+  <% } %>
+</div>
+
+<% if (totalPages > 1) { %>
+<nav class="pagination">
+  <% if (page > 1) { %>
+    <a href="<%= page === 2 ? '/' : '/page/' + (page - 1) + '.html' %>" class="page-link">&laquo; 上一页</a>
+  <% } %>
+  <span class="page-info">第 <%= page %> / <%= totalPages %> 页</span>
+  <% if (page < totalPages) { %>
+    <a href="/page/<%= page + 1 %>.html" class="page-link">下一页 &raquo;</a>
+  <% } %>
+</nav>
+<% } %>

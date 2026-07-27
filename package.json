@@ -1,0 +1,24 @@
+{
+  "name": "tech-blog",
+  "version": "1.0.0",
+  "description": "个人技术博客 — 从第一性原理构建的静态站点生成器",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node src/server.js",
+    "build": "node src/build.js",
+    "start": "node src/server.js --production",
+    "new": "node src/new-post.js"
+  },
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.21.0",
+    "gray-matter": "^4.0.3",
+    "highlight.js": "^11.10.0",
+    "marked": "^14.1.0",
+    "marked-highlight": "^2.2.1"
+  },
+  "devDependencies": {
+    "chokidar": "^3.6.0"
+  }
+}

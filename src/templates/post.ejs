@@ -1,0 +1,48 @@
+<%
+// Variables: post (single post object), prevPost, nextPost
+const { post, prevPost, nextPost } = locals;
+%>
+
+<article class="post-detail">
+  <header class="post-header">
+    <% if (post.pinned) { %>
+      <span class="pin-badge" title="置顶">📌 置顶</span>
+    <% } %>
+    <h1><%= post.title %></h1>
+    <div class="post-meta">
+      <time datetime="<%= post.date %>">发布于 <%= post.date %></time>
+      <% if (post.updated) { %>
+        <span class="post-updated">更新于 <%= post.updated %></span>
+      <% } %>
+      <span class="post-category">
+        分类：<a href="/category/<%= tagSlug(post.category) %>.html"><%= post.category %></a>
+      </span>
+    </div>
+    <% if (post.tags.length > 0) { %>
+      <div class="post-tags">
+        <% for (const tag of post.tags) { %>
+          <a href="/tag/<%= tagSlug(tag) %>.html" class="tag"><%= tag %></a>
+        <% } %>
+      </div>
+    <% } %>
+  </header>
+
+  <div class="post-content">
+    <%- post.content %>
+  </div>
+</article>
+
+<nav class="post-nav">
+  <div class="post-nav-left">
+    <% if (prevPost) { %>
+      <span class="post-nav-label">&laquo; 上一篇</span>
+      <a href="/post/<%= prevPost.slug %>.html"><%= prevPost.title %></a>
+    <% } %>
+  </div>
+  <div class="post-nav-right">
+    <% if (nextPost) { %>
+      <span class="post-nav-label">下一篇 &raquo;</span>
+      <a href="/post/<%= nextPost.slug %>.html"><%= nextPost.title %></a>
+    <% } %>
+  </div>
+</nav>

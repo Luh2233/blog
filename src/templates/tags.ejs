@@ -1,0 +1,40 @@
+<%
+// Variables: tags (all tag objects with counts), posts (filtered posts, optional)
+const { tags, posts, tag: currentTag } = locals;
+%>
+
+<% if (typeof currentTag !== "undefined") { %>
+  <%# Tag detail page %>
+  <h1>标签：<%= currentTag %></h1>
+  <p>共 <%= posts.length %> 篇文章</p>
+
+  <div class="post-list">
+    <% for (const post of posts) { %>
+      <article class="post-card">
+        <h2 class="post-title">
+          <a href="/post/<%= post.slug %>.html"><%= post.title %></a>
+        </h2>
+        <div class="post-meta">
+          <time datetime="<%= post.date %>"><%= post.date %></time>
+          <span class="post-category">
+            <a href="/category/<%= tagSlug(post.category) %>.html"><%= post.category %></a>
+          </span>
+        </div>
+        <% if (post.summary) { %>
+          <p class="post-summary"><%= post.summary %></p>
+        <% } %>
+      </article>
+    <% } %>
+  </div>
+<% } else { %>
+  <%# Tags index page %>
+  <h1>所有标签</h1>
+  <div class="tag-cloud">
+    <% for (const { tag, count } of tags) { %>
+      <a href="/tag/<%= tagSlug(tag) %>.html" class="tag tag-lg" style="font-size: <%= 0.8 + Math.min(count / Math.max(...tags.map(t => t.count)), 1) * 1.2 %>em">
+        <%= tag %>
+        <span class="tag-count"><%= count %></span>
+      </a>
+    <% } %>
+  </div>
+<% } %>

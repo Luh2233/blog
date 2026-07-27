@@ -1,0 +1,22 @@
+<%
+// Variables: posts (all posts), postsByYear (grouped by year)
+const { posts, postsByYear } = locals;
+%>
+
+<h1>文章归档</h1>
+<p>共 <%= posts.length %> 篇文章</p>
+
+<% for (const [year, yearPosts] of postsByYear) { %>
+  <section class="archive-year">
+    <h2><%= year %></h2>
+    <ul class="archive-list">
+      <% for (const post of yearPosts) { %>
+        <li>
+          <time datetime="<%= post.date %>"><%= post.date %></time>
+          <a href="/post/<%= post.slug %>.html"><%= post.title %></a>
+          <span class="archive-category">[<%= post.category %>]</span>
+        </li>
+      <% } %>
+    </ul>
+  </section>
+<% } %>
