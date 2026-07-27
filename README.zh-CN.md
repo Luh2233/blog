@@ -1,3 +1,4 @@
+> [English document](README.md)
 # Tech Blog
 
 个人技术博客系统，轻量静态站点生成器 + Express 开发服务器，写 Markdown，一键生成纯 HTML 静态站点，零运行时依赖部署。
